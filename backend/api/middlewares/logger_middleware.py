@@ -6,7 +6,7 @@ import time
 from datetime import datetime
 from backend.utils import logging
 
-logger = logging.logger_setup()
+logger = logging.logger
 
 class LoggerMiddleware(BaseHTTPMiddleware):
     async def dispatch(
@@ -33,7 +33,6 @@ class LoggerMiddleware(BaseHTTPMiddleware):
         time_dur = time.time()-start
 
         logger.info(f"""Outgoing Response:
-                    Status: {response.status},
+                    Status: {response.status_code},
                     Duration: {time_dur}""")
-        response = await call_next(request)
         return response
