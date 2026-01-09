@@ -52,5 +52,4 @@ def delete_command(id: int, db: Session=Depends(get_db)):
         raise HTTPException(status_code = status.HTTP_404_NOT_FOUND, detail=f"command with id {id} was not found")
     db.delete(item)
     db.commit()
-    commands = get_commands(db)
-    return commands
+    return get_commands(db)

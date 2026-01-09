@@ -27,10 +27,12 @@ class LoggerMiddleware(BaseHTTPMiddleware):
 
         logger.info(f"""Incoming request:
             Time: {timsp}
+            Raw Path: {request.url.path}
+            Path Params: {request.path_params}
             Query Params: {dict(request.query_params)}
         """)
         response = await call_next(request)
-        time_dur = time.time()-start
+        time_dur = (time.time()-start)*1000
 
         logger.info(f"""Outgoing Response:
                     Status: {response.status_code},
